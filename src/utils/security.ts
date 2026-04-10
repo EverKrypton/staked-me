@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js'
 
-const ENCRYPTION_KEY = process.env.NEXT_PUBLIC_ENCRYPTION_KEY || 'staked-me-default-key-change-in-production'
+const ENCRYPTION_KEY = process.env['NEXT_PUBLIC_ENCRYPTION_KEY'] || 'staked-me-default-key-change-in-production'
 
 export function encryptData(data: string): string {
   return CryptoJS.AES.encrypt(data, ENCRYPTION_KEY).toString()
