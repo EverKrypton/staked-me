@@ -1,51 +1,73 @@
 # 🥩 Staked.me
 
-**Multi-chain staking aggregator & portfolio tracker**
+**Multi-chain staking aggregator with e-commerce & crypto payments**
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-22c55e?style=for-the-badge)](https://staked.me)
+[![Next.js](https://img.shields.io/badge/Next.js-15.2-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
 ![Staked.me Dashboard](https://via.placeholder.com/1200x600/0f172a/22c55e?text=Staked.me+Dashboard)
 
 ## 🚀 Overview
 
-Staked.me is a professional-grade DeFi staking aggregator that helps you find, track, and optimize your staking positions across 50+ protocols on 7 chains.
+Staked.me is a professional-grade DeFi platform that combines staking aggregation with e-commerce functionality. Purchase staking positions with crypto payments, track your portfolio, and optimize yields across 50+ protocols on 7 chains.
 
 ### Features
 
+- **🛒 E-Commerce Platform** - Purchase staking products with crypto payments
+- **💳 Multi-Token Payments** - Pay with USDT, USDC, ETH, MATIC, BNB
 - **🔄 Multi-Chain Support** - Ethereum, Polygon, Arbitrum, BNB Chain, Avalanche, Optimism, Base
 - **📊 Real-Time APY Data** - Live yield tracking across all supported protocols
 - **💼 Portfolio Dashboard** - Unified view of all your staked positions
-- **⚡ Gas Optimization** - Smart routing for cheapest transactions
-- **🛡️ Risk Analysis** - Protocol security scores and audit information
+- **🔒 Security First** - CSP headers, input sanitization, encrypted storage
+- **⚡ Next.js 15** - Turbopack, React 19, optimal performance
 
 ## 🏗️ Tech Stack
 
 | Category | Technologies |
 |----------|-------------|
-| Framework | Next.js 14, React 18, TypeScript |
+| Framework | Next.js 15, React 19, TypeScript 5.7 |
 | Web3 | wagmi, viem, RainbowKit |
-| Styling | Tailwind CSS, Framer Motion |
-| State | TanStack Query |
-| Charts | Recharts |
-| Icons | Lucide React |
+| State | Zustand, TanStack Query |
+| Forms | React Hook Form, Zod |
+| Styling | Tailwind CSS, Framer Motion, Radix UI |
+| Testing | Jest, React Testing Library |
+| Security | DOMPurify, CryptoJS, CSP Headers |
 
-## 🔗 Supported Protocols
+## 🛒 E-Commerce Features
 
-| Protocol | Type | Chains |
-|----------|------|--------|
-| Lido | Liquid Staking | Ethereum, Polygon |
-| Rocket Pool | Liquid Staking | Ethereum |
-| EigenLayer | Restaking | Ethereum |
-| Uniswap V3 | LP Staking | All EVM chains |
-| PancakeSwap | LP Staking | BNB Chain |
-| GMX | LP Staking | Arbitrum, Avalanche |
-| Aave V3 | Lending | Multi-chain |
-| Venus | Lending | BNB Chain |
-| Velodrome | LP Staking | Optimism |
-| Aerodrome | LP Staking | Base |
+### Shopping Cart
+- Add/remove staking products
+- Quantity management
+- Persistent cart (localStorage)
+- Real-time price updates
 
-...and 40+ more protocols.
+### Checkout Flow
+1. **Delivery Address** - Your wallet for receiving staking positions
+2. **Payment Selection** - Choose from 7+ crypto payment methods
+3. **Transaction** - Sign and send payment directly from wallet
+4. **Confirmation** - Instant order confirmation
+
+### Supported Payment Methods
+| Token | Chain | Type |
+|-------|-------|------|
+| USDT | Ethereum | ERC-20 |
+| USDC | Ethereum | ERC-20 |
+| USDT | BNB Chain | BEP-20 |
+| USDC | Polygon | ERC-20 |
+| ETH | Ethereum | Native |
+| MATIC | Polygon | Native |
+| BNB | BNB Chain | Native |
+
+## 🔐 Security Features
+
+- **Content Security Policy (CSP)** - Strict headers prevent XSS
+- **Input Sanitization** - All user inputs cleaned with DOMPurify
+- **Data Encryption** - Sensitive data encrypted with AES
+- **Form Validation** - Zod schemas for type-safe validation
+- **No Unsafe Operations** - `no-eval`, `no-implied-eval` enforced
+- **Strict TypeScript** - All strict mode checks enabled
 
 ## 📦 Installation
 
@@ -59,86 +81,114 @@ cd staked-me
 # Install dependencies
 npm install
 
+# Copy environment variables
+cp .env.example .env.local
+
 # Run development server
 npm run dev
 ```
 
 ## 🔧 Environment Variables
 
-Create a `.env.local` file:
-
 ```env
+# Required
 NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_project_id
+NEXT_PUBLIC_ENCRYPTION_KEY=your-secure-key-min-32-chars
+
+# Optional (for better RPC reliability)
 NEXT_PUBLIC_ALCHEMY_API_KEY=your_alchemy_key
 NEXT_PUBLIC_INFURA_API_KEY=your_infura_key
+
+# Payment receiving address
+NEXT_PUBLIC_PAYMENT_WALLET_ADDRESS=0x...
 ```
 
-## 🎨 Design System
+## 🧪 Testing
 
-### Color Palette
+```bash
+# Run tests
+npm test
 
-- **Primary (Green)**: `#22c55e` - Actions, positive indicators, CTAs
-- **Background (Dark)**: `#0f172a` - Main background
-- **Accent Purple**: `#a855f7` - LP Staking tags
-- **Accent Blue**: `#3b82f6` - Lending tags
-- **Accent Cyan**: `#06b6d4` - Native staking tags
-- **Accent Orange**: `#f97316` - Restaking tags
+# Run tests with coverage
+npm run test:coverage
 
-### Typography
+# Run linter
+npm run lint
 
-- **Display**: Space Grotesk - Headlines, numbers
-- **Body**: Inter - General text
-- **Mono**: JetBrains Mono - Addresses, code
+# Type check
+npm run typecheck
+```
 
-## 📊 API Integration
+## 📊 Project Structure
 
-Staked.me uses free RPC endpoints for blockchain data:
-
-| Chain | RPC Provider |
-|-------|-------------|
-| Ethereum | LlamaRPC, Ankr, PublicNode |
-| Polygon | Polygon RPC, Ankr, LlamaRPC |
-| Arbitrum | Arbitrum RPC, Ankr, LlamaRPC |
-| BNB Chain | Binance RPC, PublicNode, Ankr |
-| Avalanche | Avalanche RPC, Ankr, PublicNode |
-| Optimism | Optimism RPC, Ankr, PublicNode |
-| Base | Base RPC, Ankr, PublicNode |
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── checkout/           # Checkout page
+│   ├── pool/               # Liquidity pools
+│   ├── portfolio/          # User portfolio
+│   ├── products/           # Product catalog
+│   └── stake/              # Staking page
+├── components/
+│   ├── cart/               # Shopping cart
+│   ├── checkout/           # Checkout flow
+│   └── ui/                 # Reusable UI components
+├── config/
+│   ├── chains.ts           # Chain configurations
+│   ├── products.ts         # Staking products
+│   ├── protocols.ts        # DeFi protocols
+│   └── wagmi.ts            # Web3 config
+├── hooks/                  # Custom React hooks
+├── lib/                    # Utility functions
+├── store/                  # Zustand stores
+│   ├── cart.ts             # Cart state
+│   └── order.ts            # Order state
+├── types/                  # TypeScript types
+└── utils/
+    ├── format.ts           # Number formatting
+    ├── security.ts         # Security utilities
+    └── validation.ts       # Zod schemas
+```
 
 ## 🚢 Deployment
 
 ### Vercel (Recommended)
 
 ```bash
-# Install Vercel CLI
 npm i -g vercel
-
-# Deploy
 vercel
 ```
 
 ### Docker
 
-```bash
-# Build image
-docker build -t staked-me .
-
-# Run container
-docker run -p 3000:3000 staked-me
+```dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
 ```
 
 ## 📈 Roadmap
 
 - [ ] Portfolio analytics with PnL tracking
 - [ ] Impermanent loss calculator
-- [ ] Yield farming strategies
+- [ ] Auto-compounding strategies
+- [ ] Cross-chain bridging
 - [ ] Mobile app (React Native)
-- [ ] Governance token launch
-- [ ] Cross-chain bridging integration
-- [ ] ZK-proof verified APY data
+- [ ] Governance token
+- [ ] ZK-proof verified APY
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing`)
+5. Open a Pull Request
 
 ## 📄 License
 
@@ -147,9 +197,8 @@ MIT License - see [LICENSE](LICENSE) for details.
 ## 🔗 Links
 
 - **Website**: [staked.me](https://staked.me)
+- **GitHub**: [EverKrypton/staked-me](https://github.com/EverKrypton/staked-me)
 - **Twitter**: [@staked_me](https://twitter.com/staked_me)
-- **Discord**: [Join Community](https://discord.gg/stakedme)
-- **Docs**: [docs.staked.me](https://docs.staked.me)
 
 ---
 

@@ -4,9 +4,11 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { Activity, Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { Cart } from '@/components/cart/Cart'
 
 const navLinks = [
   { href: '/', label: 'Dashboard' },
+  { href: '/products', label: 'Products' },
   { href: '/stake', label: 'Stake' },
   { href: '/pool', label: 'Pools' },
   { href: '/portfolio', label: 'Portfolio' },
@@ -41,7 +43,8 @@ export function Header() {
             </nav>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <Cart />
             <ConnectButton />
             
             <button
