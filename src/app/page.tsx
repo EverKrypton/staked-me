@@ -119,19 +119,20 @@ function HomeContent() {
                 <h3 className="text-lg font-semibold text-white mb-6">Chain Distribution</h3>
                 <div className="space-y-3">
                   {chains.slice(0, 5).map((chain, index) => {
-                    const tvls = [28.5, 4.2, 3.2, 2.8, 1.8]
+                    const tvls = [28.5, 4.2, 3.2, 2.8, 1.8] as const
+                    const tvl = tvls[index] ?? 0
                     return (
                       <div key={chain.name} className="flex items-center gap-3">
                         <img src={chain.logo} alt={chain.name} className="w-6 h-6 rounded-full" />
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-sm font-medium text-white">{chain.name}</span>
-                            <span className="text-sm text-stake">${tvls[index]}B</span>
+                            <span className="text-sm text-stake">${tvl}B</span>
                           </div>
                           <div className="h-1.5 bg-iron/50 rounded-full overflow-hidden">
                             <div 
                               className="h-full bg-gradient-to-r from-stake to-yield rounded-full"
-                              style={{ width: `${(tvls[index] / 28.5) * 100}%` }}
+                              style={{ width: `${(tvl / 28.5) * 100}%` }}
                             />
                           </div>
                         </div>
