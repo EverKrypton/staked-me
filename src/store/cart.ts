@@ -1,4 +1,4 @@
-import { defineStore } from 'zustand'
+import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { CartItem, Product } from '@/types'
 
@@ -20,7 +20,7 @@ interface CartState {
   getTotalPriceUSD: () => number
 }
 
-export const useCartStore = defineStore<CartState>()(
+export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],

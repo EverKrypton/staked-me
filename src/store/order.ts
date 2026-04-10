@@ -1,4 +1,4 @@
-import { defineStore } from 'zustand'
+import { create } from 'zustand'
 import type { Order, PaymentMethod } from '@/types'
 
 interface OrderState {
@@ -77,13 +77,13 @@ export const paymentMethods: PaymentMethod[] = [
   },
 ]
 
-export const useOrderStore = defineStore<OrderState>()((set, get) => ({
+export const useOrderStore = create<OrderState>()((set, get) => ({
   currentOrder: null,
   orders: [],
   isProcessing: false,
 
   createOrder: (orderData) => {
-    const orderId = `order_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    const orderId = `order_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`
     const order: Order = {
       ...orderData,
       id: orderId,
