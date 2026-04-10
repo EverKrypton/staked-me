@@ -8,28 +8,28 @@ const stats = [
     value: '$45.2B',
     change: 3.2,
     icon: DollarSign,
-    gradient: 'from-plasma to-neon',
+    color: 'stake',
   },
   {
     label: 'Active Stakers',
     value: '2.84M',
     change: 8.5,
     icon: Users,
-    gradient: 'from-neon to-flux',
+    color: 'yield',
   },
   {
     label: 'Protocols',
     value: '52',
     change: 4,
     icon: Zap,
-    gradient: 'from-flux to-plasma',
+    color: 'gain',
   },
   {
     label: 'Avg. APY',
     value: '12.4%',
     change: -0.8,
     icon: TrendingUp,
-    gradient: 'from-plasma to-pulse',
+    color: 'deep',
   },
 ]
 
@@ -47,23 +47,23 @@ export function StatsGrid() {
             style={{ animationDelay: `${index * 100}ms` }}
           >
             <div className="flex items-start justify-between mb-3">
-              <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br ${stat.gradient} bg-opacity-10 flex items-center justify-center`}>
-                <Icon className="w-5 h-5 text-plasma" />
+              <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-${stat.color}/20 flex items-center justify-center`}>
+                <Icon className={`w-5 h-5 text-${stat.color}`} />
               </div>
               <div className="flex items-center gap-1">
                 {isPositive ? (
-                  <ArrowUpRight className="w-3.5 h-3.5 text-plasma" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-stake" />
                 ) : (
-                  <ArrowDownRight className="w-3.5 h-3.5 text-red-400" />
+                  <ArrowDownRight className="w-3.5 h-3.5 text-boost" />
                 )}
-                <span className={`text-xs font-semibold ${isPositive ? 'text-plasma' : 'text-red-400'}`}>
+                <span className={`text-xs font-semibold ${isPositive ? 'text-stake' : 'text-boost'}`}>
                   {isPositive ? '+' : ''}{stat.change}%
                 </span>
               </div>
             </div>
 
             <div>
-              <p className="text-[10px] sm:text-xs text-mist uppercase tracking-wide mb-1">{stat.label}</p>
+              <p className="text-[10px] sm:text-xs text-fog uppercase tracking-wide mb-1">{stat.label}</p>
               <p className="stat-value text-2xl sm:text-3xl lg:text-4xl gradient-text">{stat.value}</p>
             </div>
           </div>

@@ -10,9 +10,9 @@ import { CHAIN_METADATA } from '@/config/chains'
 import { useAccount } from 'wagmi'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
-const stakeTypes = ['All', 'Liquid Staking', 'Restaking', 'Lending']
+const poolTypes = ['All', 'Liquid Staking', 'LP Staking', 'Restaking', 'Lending']
 
-function StakeContent() {
+function PoolsContent() {
   const { isConnected } = useAccount()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedChain, setSelectedChain] = useState('All')
@@ -40,16 +40,16 @@ function StakeContent() {
         <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <section className="mb-8">
             <h1 className="text-3xl sm:text-4xl font-display font-bold text-white mb-2">
-              <span className="gradient-text">Stake</span>
+              <span className="gradient-text">Staking Pools</span>
             </h1>
-            <p className="text-fog">Find the best staking opportunities across all chains</p>
+            <p className="text-fog">Explore all staking opportunities across chains</p>
           </section>
 
           {!isConnected && (
             <div className="glass-card p-4 mb-6 flex items-center gap-3 border-boost/30">
               <AlertCircle className="w-5 h-5 text-boost" />
               <p className="text-fog text-sm">
-                Connect your wallet to stake directly from the dashboard.
+                Connect your wallet to track your positions and receive personalized recommendations.
               </p>
             </div>
           )}
@@ -84,7 +84,7 @@ function StakeContent() {
             </div>
             
             <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
-              {stakeTypes.map((type) => (
+              {poolTypes.map((type) => (
                 <button
                   key={type}
                   onClick={() => setSelectedType(type)}
@@ -103,20 +103,23 @@ function StakeContent() {
           <section>
             <div className="flex items-center justify-between mb-6">
               <p className="text-fog text-sm">
-                Showing <span className="text-white font-medium">{filteredProtocols.length}</span> protocols
+                Showing <span className="text-white font-medium">{filteredProtocols.length}</span> pools
               </p>
               <div className="flex items-center gap-2 text-fog text-sm">
                 <SlidersHorizontal className="w-4 h-4" />
-                <span>Sorted by APY</span>
+                <span>Sorted by TVL</span>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredProtocols
-                .sort((a, b) => b.apy - a.apy)
-                .map((protocol, index) => (
-                  <ProtocolCard key={`${protocol.name}-${protocol.chainId}`} protocol={protocol} index={index} />
-                ))}
+              {filteredProtocols.map((protocol, index) => (
+                <ProtocolCard key={`${protocol.name}-${protocol.chainId}`} protocol={protocol} index={index} />
+              ))}
             </div>
+            {filteredProtocols.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-fog">No pools found matching your criteria</p>
+              </div>
+            )}
           </section>
         </div>
       </main>
@@ -126,10 +129,10 @@ function StakeContent() {
   )
 }
 
-export default function StakePage() {
+export default function PoolsPage() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <StakeContent />
+      <PoolsContent />
     </Suspense>
   )
 }

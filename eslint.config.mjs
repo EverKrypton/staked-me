@@ -63,6 +63,7 @@ const eslintConfig = [
         KeyboardEvent: "readonly",
         MouseEvent: "readonly",
         Event: "readonly",
+        Node: "readonly",
         FormData: "readonly",
         File: "readonly",
         Blob: "readonly",
@@ -80,6 +81,7 @@ const eslintConfig = [
     rules: {
       ...typescript.configs.recommended.rules,
       ...nextPlugin.configs.recommended.rules,
+      "@next/next/no-img-element": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],

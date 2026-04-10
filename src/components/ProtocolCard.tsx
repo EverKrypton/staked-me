@@ -69,20 +69,20 @@ export function ProtocolCard({ protocol, index = 0 }: ProtocolCardProps) {
           <img
             src={protocol.logo}
             alt={protocol.name}
-            className="w-12 h-12 rounded-xl bg-slate/50 p-1"
+            className="w-12 h-12 rounded-xl bg-iron/50 p-1"
             onError={(e) => {
               (e.target as HTMLImageElement).src = 'https://via.placeholder.com/48?text=' + protocol.name[0]
             }}
           />
           <div>
-            <h3 className="font-semibold text-snow text-sm sm:text-base">{protocol.name}</h3>
+            <h3 className="font-semibold text-white text-sm sm:text-base">{protocol.name}</h3>
             <div className="flex items-center gap-2 mt-0.5">
               <img
                 src={chain.logo}
                 alt={chain.name}
                 className="w-4 h-4 rounded-full"
               />
-              <span className="text-xs text-mist">{chain.name}</span>
+              <span className="text-xs text-fog">{chain.name}</span>
             </div>
           </div>
         </div>
@@ -93,25 +93,25 @@ export function ProtocolCard({ protocol, index = 0 }: ProtocolCardProps) {
 
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div className="metric-badge">
-          <p className="text-[10px] text-mist uppercase">APY</p>
-          <p className="stat-value text-base text-plasma">{protocol.apy}%</p>
+          <p className="text-[10px] text-fog uppercase">APY</p>
+          <p className="stat-value text-base text-stake">{protocol.apy}%</p>
         </div>
-        <div className="p-2.5 rounded-lg bg-slate/20 border border-ash/20">
-          <p className="text-[10px] text-mist uppercase">TVL</p>
-          <p className="stat-value text-base text-snow">{formatCurrency(protocol.tvl)}</p>
+        <div className="p-2.5 rounded-lg bg-iron/20 border border-steel/20">
+          <p className="text-[10px] text-fog uppercase">TVL</p>
+          <p className="stat-value text-base text-white">{formatCurrency(protocol.tvl)}</p>
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-4 border-t border-graphite">
+      <div className="flex items-center justify-between pt-4 border-t border-charcoal">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-mist">Earn</span>
-          <span className="text-sm font-medium text-snow">{protocol.token}</span>
+          <span className="text-xs text-fog">Earn</span>
+          <span className="text-sm font-medium text-white">{protocol.token}</span>
         </div>
         <Link
           href={protocol.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1 text-plasma text-sm font-medium hover:text-neon transition-colors"
+          className="flex items-center gap-1 text-stake text-sm font-medium hover:text-yield transition-colors"
         >
           Open
           <ExternalLink className="w-3 h-3" />
@@ -148,20 +148,20 @@ export function TopProtocols() {
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="text-mist font-mono text-sm w-6">#{index + 1}</span>
+              <span className="text-fog font-mono text-sm w-6">#{index + 1}</span>
               <img
                 src={protocol.logo}
                 alt={protocol.name}
-                className="w-10 h-10 rounded-xl bg-slate/50 p-1"
+                className="w-10 h-10 rounded-xl bg-iron/50 p-1"
               />
               <div>
-                <h4 className="font-medium text-snow">{protocol.name}</h4>
-                <p className="text-xs text-mist">{protocol.type}</p>
+                <h4 className="font-medium text-white">{protocol.name}</h4>
+                <p className="text-xs text-fog">{protocol.type}</p>
               </div>
             </div>
             <div className="text-right">
-              <p className="font-display font-bold text-plasma">{protocol.apy}% APY</p>
-              <p className="text-xs text-mist">{formatCurrency(protocol.tvl)} TVL</p>
+              <p className="font-display font-bold text-stake">{protocol.apy}% APY</p>
+              <p className="text-xs text-fog">{formatCurrency(protocol.tvl)} TVL</p>
             </div>
           </div>
         </div>
@@ -185,20 +185,20 @@ export function HighYieldProtocols() {
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="text-mist font-mono text-sm w-6">#{index + 1}</span>
+              <span className="text-fog font-mono text-sm w-6">#{index + 1}</span>
               <img
                 src={protocol.logo}
                 alt={protocol.name}
-                className="w-10 h-10 rounded-xl bg-slate/50 p-1"
+                className="w-10 h-10 rounded-xl bg-iron/50 p-1"
               />
               <div>
-                <h4 className="font-medium text-snow">{protocol.name}</h4>
-                <p className="text-xs text-mist">{protocol.type}</p>
+                <h4 className="font-medium text-white">{protocol.name}</h4>
+                <p className="text-xs text-fog">{protocol.type}</p>
               </div>
             </div>
             <div className="text-right">
-              <p className="font-display font-bold text-plasma">{protocol.apy}% APY</p>
-              <p className="text-xs text-mist">{formatCurrency(protocol.tvl)} TVL</p>
+              <p className="font-display font-bold text-yield">{protocol.apy}% APY</p>
+              <p className="text-xs text-fog">{formatCurrency(protocol.tvl)} TVL</p>
             </div>
           </div>
         </div>
