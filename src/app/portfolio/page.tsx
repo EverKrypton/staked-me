@@ -1,10 +1,9 @@
 'use client'
 
 import { Suspense } from 'react'
-import { Wallet, TrendingUp, ExternalLink, PieChart } from 'lucide-react'
+import { Wallet, ExternalLink, PieChart } from 'lucide-react'
 import { Header } from '@/components/Header'
 import { CartDrawer } from '@/components/cart/CartDrawer'
-import { StatsGrid } from '@/components/StatsGrid'
 import { useAccount } from 'wagmi'
 import { formatCurrency } from '@/utils/format'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'

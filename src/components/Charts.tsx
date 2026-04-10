@@ -1,6 +1,6 @@
 'use client'
 
-import { formatCurrency, formatNumber } from '@/utils/format'
+import { formatCurrency } from '@/utils/format'
 import { CHAIN_METADATA } from '@/config/chains'
 
 const chainStats = [

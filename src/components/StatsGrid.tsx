@@ -1,7 +1,6 @@
 'use client'
 
 import { TrendingUp, Users, DollarSign, Zap, ArrowUpRight, ArrowDownRight } from 'lucide-react'
-import { formatCurrency, formatNumber } from '@/utils/format'
 
 const stats = [
   {

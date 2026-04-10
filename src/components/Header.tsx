@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Activity, Menu, X, TrendingUp, Wallet, ShoppingBag, PieChart } from 'lucide-react'
+import { Activity, Menu, X, TrendingUp, ShoppingBag, PieChart } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ConnectButton } from '@rainbow-me/rainbowkit'

@@ -16,7 +16,7 @@ const mockStats = {
 }
 
 export function StatsOverview() {
-  const { isConnected } = useAccount()
+  useAccount()
 
   const stats = [
     {
