@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Activity, Menu, X, TrendingUp, ShoppingBag, PieChart } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { ConnectWallet } from '@/components/ConnectWallet'
 import { useCartStore } from '@/store/cart'
 
 const navItems = [
@@ -94,7 +94,7 @@ export function Header() {
               </button>
 
               <div className="hidden sm:block">
-                <ConnectButton />
+                <ConnectWallet />
               </div>
               
               <button
@@ -151,7 +151,7 @@ export function Header() {
           </div>
           
           <div className="mt-6 pt-6 border-t border-ash/20">
-            <ConnectButton />
+            <ConnectWallet />
           </div>
         </nav>
       </div>

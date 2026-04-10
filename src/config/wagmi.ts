@@ -1,16 +1,11 @@
 import { http, createConfig } from 'wagmi'
 import { mainnet, polygon, arbitrum, bsc, avalanche, optimism, base } from 'wagmi/chains'
-import { injected, metaMask, walletConnect, coinbaseWallet } from 'wagmi/connectors'
-
-const projectId = 'staked-me'
+import { injected } from 'wagmi/connectors'
 
 export const config = createConfig({
   chains: [mainnet, polygon, arbitrum, bsc, avalanche, optimism, base],
   connectors: [
-    injected(),
-    metaMask(),
-    coinbaseWallet({ appName: 'Staked.me' }),
-    walletConnect({ projectId }),
+    injected({ target: 'metaMask' }),
   ],
   transports: {
     [mainnet.id]: http('https://eth.llamarpc.com'),
