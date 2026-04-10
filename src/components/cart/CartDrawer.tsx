@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { X, Minus, Plus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
@@ -23,7 +23,7 @@ export function CartDrawer() {
   const totalItems = getTotalItems()
   const totalPrice = getTotalPriceUSD()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -34,7 +34,7 @@ export function CartDrawer() {
     }
   }, [isOpen])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeCart()
     }
