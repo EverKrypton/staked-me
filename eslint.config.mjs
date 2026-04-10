@@ -98,6 +98,7 @@ const eslintConfig = [
       "no-var": "error",
       eqeqeq: ["error", "always"],
       curly: ["error", "multi-line"],
+      "no-constant-condition": "warn",
     },
   },
   {
