@@ -5,16 +5,16 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-plasma focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        default: 'bg-primary-600 text-white hover:bg-primary-500 hover:shadow-lg hover:shadow-primary-500/25',
+        default: 'bg-gradient-to-r from-plasma to-neon text-void hover:shadow-lg hover:shadow-plasma/30',
         destructive: 'bg-red-600 text-white hover:bg-red-500',
-        outline: 'border border-dark-600 bg-transparent hover:bg-dark-800 hover:border-dark-500 text-dark-100',
-        secondary: 'bg-dark-800 text-white hover:bg-dark-700',
-        ghost: 'hover:bg-dark-800 text-dark-300 hover:text-white',
-        link: 'text-primary-500 underline-offset-4 hover:underline',
+        outline: 'border border-ash bg-transparent hover:bg-slate/50 hover:border-mist text-snow',
+        secondary: 'bg-slate text-snow hover:bg-ash/50',
+        ghost: 'hover:bg-slate/50 text-mist hover:text-snow',
+        link: 'text-plasma underline-offset-4 hover:underline',
       },
       size: {
         default: 'h-10 px-4 py-2',

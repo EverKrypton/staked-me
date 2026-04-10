@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { formatCurrency, formatNumber } from '@/utils/format'
 import { CHAIN_METADATA } from '@/config/chains'
 
@@ -29,34 +28,34 @@ export function TVLChart() {
   const minTVL = Math.min(...tvlHistory.map((d) => d.tvl))
 
   return (
-    <div className="glass-card p-6">
+    <div className="glass-card p-5 sm:p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="font-display font-semibold text-white">Total Value Locked</h3>
-          <p className="text-dark-400 text-sm mt-1">Across all chains</p>
+          <h3 className="font-display font-semibold text-snow">Total Value Locked</h3>
+          <p className="text-mist text-sm mt-1">Across all chains</p>
         </div>
         <div className="text-right">
           <p className="text-2xl font-display font-bold gradient-text">$45.2B</p>
-          <p className="text-primary-500 text-sm font-medium">+3.2% this week</p>
+          <p className="text-plasma text-sm font-medium">+3.2% this week</p>
         </div>
       </div>
 
       <div className="h-48 flex items-end justify-between gap-2">
-        {tvlHistory.map((data, index) => {
+        {tvlHistory.map((data) => {
           const height = ((data.tvl - minTVL) / (maxTVL - minTVL)) * 100
           return (
             <div key={data.date} className="flex-1 flex flex-col items-center gap-2">
               <div className="w-full relative" style={{ height: '160px' }}>
                 <div
-                  className="absolute bottom-0 w-full rounded-t-lg bg-gradient-to-t from-primary-600 to-primary-400 hover:from-primary-500 hover:to-primary-300 transition-all duration-300 cursor-pointer group"
+                  className="absolute bottom-0 w-full rounded-t-lg bg-gradient-to-t from-plasma to-neon hover:from-plasma/80 hover:to-neon/80 transition-all duration-300 cursor-pointer group"
                   style={{ height: `${height}%` }}
                 >
-                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-dark-800 rounded text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate rounded text-xs text-snow opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                     {formatCurrency(data.tvl)}
                   </div>
                 </div>
               </div>
-              <span className="text-xs text-dark-500">{data.date.split('-')[1]}</span>
+              <span className="text-xs text-mist">{data.date.split('-')[1]}</span>
             </div>
           )
         })}
@@ -69,8 +68,8 @@ export function ChainDistribution() {
   const totalTVL = chainStats.reduce((acc, chain) => acc + chain.tvl, 0)
 
   return (
-    <div className="glass-card p-6">
-      <h3 className="font-display font-semibold text-white mb-6">Chain Distribution</h3>
+    <div className="glass-card p-5 sm:p-6">
+      <h3 className="font-display font-semibold text-snow mb-6">Chain Distribution</h3>
       
       <div className="space-y-4">
         {chainStats.map((chain) => {
@@ -86,16 +85,16 @@ export function ChainDistribution() {
                     alt={metadata.name}
                     className="w-5 h-5 rounded-full"
                   />
-                  <span className="text-sm font-medium text-white">{metadata.name}</span>
+                  <span className="text-sm font-medium text-snow">{metadata.name}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-dark-400">{formatCurrency(chain.tvl)}</span>
-                  <span className="text-sm font-medium text-primary-500">{percentage.toFixed(1)}%</span>
+                  <span className="text-sm text-mist">{formatCurrency(chain.tvl)}</span>
+                  <span className="text-sm font-medium text-plasma">{percentage.toFixed(1)}%</span>
                 </div>
               </div>
-              <div className="h-2 bg-dark-800 rounded-full overflow-hidden">
+              <div className="h-2 bg-slate/50 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-primary-600 to-primary-400 rounded-full transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-plasma to-neon rounded-full transition-all duration-500"
                   style={{ width: `${percentage}%` }}
                 />
               </div>
@@ -109,31 +108,31 @@ export function ChainDistribution() {
 
 export function APYDistribution() {
   const categories = [
-    { range: '0-5%', count: 12, color: 'bg-dark-500' },
-    { range: '5-10%', count: 18, color: 'bg-primary-600' },
-    { range: '10-15%', count: 14, color: 'bg-primary-500' },
-    { range: '15-20%', count: 8, color: 'bg-accent-cyan' },
-    { range: '20%+', count: 6, color: 'bg-accent-purple' },
+    { range: '0-5%', count: 12, color: 'bg-ash' },
+    { range: '5-10%', count: 18, color: 'bg-plasma' },
+    { range: '10-15%', count: 14, color: 'bg-neon' },
+    { range: '15-20%', count: 8, color: 'bg-flux' },
+    { range: '20%+', count: 6, color: 'bg-pulse' },
   ]
 
   const maxCount = Math.max(...categories.map((c) => c.count))
 
   return (
-    <div className="glass-card p-6">
-      <h3 className="font-display font-semibold text-white mb-6">APY Distribution</h3>
+    <div className="glass-card p-5 sm:p-6">
+      <h3 className="font-display font-semibold text-snow mb-6">APY Distribution</h3>
       
       <div className="space-y-3">
         {categories.map((cat) => {
           const width = (cat.count / maxCount) * 100
           return (
             <div key={cat.range} className="flex items-center gap-3">
-              <span className="text-sm text-dark-400 w-16">{cat.range}</span>
-              <div className="flex-1 h-6 bg-dark-800 rounded-lg overflow-hidden">
+              <span className="text-sm text-mist w-16">{cat.range}</span>
+              <div className="flex-1 h-6 bg-slate/50 rounded-lg overflow-hidden">
                 <div
                   className={`h-full ${cat.color} rounded-lg transition-all duration-500 flex items-center justify-end pr-2`}
                   style={{ width: `${width}%` }}
                 >
-                  <span className="text-xs font-medium text-white">{cat.count}</span>
+                  <span className="text-xs font-medium text-void">{cat.count}</span>
                 </div>
               </div>
             </div>

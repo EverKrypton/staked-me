@@ -29,8 +29,8 @@ const Toast = React.forwardRef<
   }
 >(({ className, variant = 'default', ...props }, ref) => {
   const variantClasses = {
-    default: 'border-dark-700 bg-dark-900 text-white',
-    success: 'border-primary-500/50 bg-primary-950 text-primary-100',
+    default: 'border-graphite bg-carbon text-snow',
+    success: 'border-plasma/50 bg-plasma/10 text-plasma',
     error: 'border-red-500/50 bg-red-950 text-red-100',
   }
 
@@ -79,7 +79,7 @@ const ToastClose = React.forwardRef<
   <ToastPrimitive.Close
     ref={ref}
     className={cn(
-      'absolute right-1 top-1 rounded-md p-1 text-white/50 opacity-0 transition-opacity hover:text-white focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100',
+      'absolute right-1 top-1 rounded-md p-1 text-snow/50 opacity-0 transition-opacity hover:text-snow focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100',
       className
     )}
     toast-close=""
