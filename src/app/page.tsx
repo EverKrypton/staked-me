@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { StatsGrid } from '@/components/StatsGrid'
-import { ProtocolCard, TopProtocols } from '@/components/ProtocolCard'
+import { TopProtocols } from '@/components/ProtocolCard'
 import { CHAIN_METADATA } from '@/config/chains'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 

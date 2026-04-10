@@ -1,13 +1,11 @@
 'use client'
 
 import { Suspense } from 'react'
-import { Wallet, ExternalLink, PieChart, TrendingUp } from 'lucide-react'
+import { Wallet, TrendingUp } from 'lucide-react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { useAccount } from 'wagmi'
-import { formatCurrency } from '@/utils/format'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
-import { CHAIN_METADATA } from '@/config/chains'
 
 function PortfolioContent() {
   const { address, isConnected } = useAccount()
