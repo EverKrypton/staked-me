@@ -68,11 +68,21 @@ export function ConnectWallet() {
     )
   }
 
+  const connector = connectors[0]
+  if (!connector) {
+    return (
+      <button disabled className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-iron/30 text-fog font-semibold text-sm cursor-not-allowed">
+        <Wallet className="w-4 h-4" />
+        No Wallet
+      </button>
+    )
+  }
+
   return (
     <button
-      onClick={() => connect({ connector: connectors[0] })}
+      onClick={() => connect({ connector })}
       disabled={isPending}
-      className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-plasma to-neon text-void font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
+      className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-stake to-yield text-void font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
     >
       <Wallet className="w-4 h-4" />
       {isPending ? 'Connecting...' : 'Connect Wallet'}
