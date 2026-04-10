@@ -1,7 +1,8 @@
 'use client'
 
 import { ExternalLink } from 'lucide-react'
-import { PROTOCOLS, CHAIN_METADATA } from '@/config/protocols'
+import { PROTOCOLS } from '@/config/protocols'
+import { CHAIN_METADATA } from '@/config/chains'
 import { formatCurrency } from '@/utils/format'
 import Link from 'next/link'
 
