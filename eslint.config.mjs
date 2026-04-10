@@ -6,6 +6,7 @@ import typescript from "@typescript-eslint/eslint-plugin";
 import typescriptParser from "@typescript-eslint/parser";
 import reactHooks from "eslint-plugin-react-hooks";
 import security from "eslint-plugin-security";
+import nextPlugin from "@next/eslint-plugin-next";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -74,9 +75,11 @@ const eslintConfig = [
       "@typescript-eslint": typescript,
       "react-hooks": reactHooks,
       security,
+      "@next/next": nextPlugin,
     },
     rules: {
       ...typescript.configs.recommended.rules,
+      ...nextPlugin.configs.recommended.rules,
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
