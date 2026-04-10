@@ -1,9 +1,13 @@
 'use client'
 
+import { Suspense } from 'react'
+import { Wallet, TrendingUp, ExternalLink, PieChart } from 'lucide-react'
 import { Header } from '@/components/Header'
-import { useAccount, useBalance } from 'wagmi'
-import { Wallet, TrendingUp, Clock, ArrowUpRight, ExternalLink } from 'lucide-react'
-import { formatCurrency } from '@/lib/utils'
+import { CartDrawer } from '@/components/cart/CartDrawer'
+import { StatsGrid } from '@/components/StatsGrid'
+import { useAccount } from 'wagmi'
+import { formatCurrency } from '@/utils/format'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { CHAIN_METADATA } from '@/config/chains'
 
 const mockPositions = [
@@ -15,6 +19,7 @@ const mockPositions = [
     value: 18234,
     apy: 3.2,
     rewards: 234,
+    logo: 'https://cryptologos.cc/logos/lido-dao-ldo-logo.png',
   },
   {
     protocol: 'PancakeSwap',
@@ -24,6 +29,7 @@ const mockPositions = [
     value: 8450,
     apy: 15.2,
     rewards: 89,
+    logo: 'https://cryptologos.cc/logos/pancakeswap-cake-logo.png',
   },
   {
     protocol: 'GMX',
@@ -33,45 +39,32 @@ const mockPositions = [
     value: 12800,
     apy: 18.5,
     rewards: 456,
+    logo: 'https://cryptologos.cc/logos/gmx-gmx-logo.png',
   },
 ]
 
-const mockHistorical = [
-  { date: '2024-01', value: 25000 },
-  { date: '2024-02', value: 27500 },
-  { date: '2024-03', value: 32000 },
-  { date: '2024-04', value: 35000 },
-  { date: '2024-05', value: 38000 },
-  { date: '2024-06', value: 39484 },
-]
-
-export default function PortfolioPage() {
-  const { address, isConnected } = useAccount()
+function PortfolioContent() {
+  const { isConnected } = useAccount()
 
   const totalValue = mockPositions.reduce((acc, p) => acc + p.value, 0)
   const totalRewards = mockPositions.reduce((acc, p) => acc + p.rewards, 0)
-  const avgAPY = (
-    mockPositions.reduce((acc, p) => acc + p.apy * p.value, 0) / totalValue
-  ).toFixed(1)
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen bg-dark-950 bg-grid-pattern bg-grid">
-        <div className="fixed inset-0 bg-gradient-to-b from-primary-950/20 via-transparent to-dark-950 pointer-events-none" />
+      <div className="min-h-screen bg-void bg-grid bg-noise">
         <Header />
-        <main className="relative pt-24 pb-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="glass-card p-12 text-center">
-              <div className="p-4 rounded-2xl bg-dark-800/50 w-fit mx-auto mb-6">
-                <Wallet className="w-12 h-12 text-dark-400" />
-              </div>
-              <h2 className="text-2xl font-display font-bold text-white mb-4">
-                Connect Your Wallet
-              </h2>
-              <p className="text-dark-400 max-w-md mx-auto">
-                Connect your wallet to view your staking positions and track your portfolio performance.
-              </p>
+        <CartDrawer />
+        <main className="pt-32 pb-16 px-4">
+          <div className="max-w-md mx-auto text-center">
+            <div className="w-20 h-20 rounded-2xl bg-slate/30 flex items-center justify-center mx-auto mb-6">
+              <Wallet className="w-10 h-10 text-mist" />
             </div>
+            <h2 className="text-2xl font-display font-bold text-snow mb-3">
+              Connect Your Wallet
+            </h2>
+            <p className="text-mist">
+              Connect your wallet to view your staking positions and track your portfolio performance.
+            </p>
           </div>
         </main>
       </div>
@@ -79,78 +72,65 @@ export default function PortfolioPage() {
   }
 
   return (
-    <div className="min-h-screen bg-dark-950 bg-grid-pattern bg-grid">
-      <div className="fixed inset-0 bg-gradient-to-b from-primary-950/20 via-transparent to-dark-950 pointer-events-none" />
+    <div className="min-h-screen bg-void bg-grid bg-noise">
       <Header />
+      <CartDrawer />
 
-      <main className="relative pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <section className="mb-8">
-            <h1 className="text-3xl font-display font-bold text-white mb-2">Portfolio</h1>
-            <p className="text-dark-400">Track your staking positions across all chains</p>
+      <main className="pt-20 sm:pt-24 pb-16 sm:pb-20">
+        <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+          <section className="mb-8 sm:mb-10">
+            <h1 className="text-3xl sm:text-4xl font-display font-bold text-snow mb-2">
+              <span className="gradient-text">Portfolio</span>
+            </h1>
+            <p className="text-mist">Track your staking positions across all chains</p>
           </section>
 
-          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div className="stat-card">
-              <p className="text-dark-400 text-sm font-medium">Total Value</p>
-              <p className="text-2xl font-display font-bold mt-1 text-white">{formatCurrency(totalValue)}</p>
-              <p className="text-primary-500 text-sm mt-1">+$4,842 (12.3%)</p>
-            </div>
-            <div className="stat-card">
-              <p className="text-dark-400 text-sm font-medium">Total Rewards</p>
-              <p className="text-2xl font-display font-bold mt-1 text-primary-500">${totalRewards}</p>
-              <p className="text-dark-400 text-sm mt-1">This month</p>
-            </div>
-            <div className="stat-card">
-              <p className="text-dark-400 text-sm font-medium">Avg APY</p>
-              <p className="text-2xl font-display font-bold mt-1 text-white">{avgAPY}%</p>
-              <p className="text-dark-400 text-sm mt-1">Weighted average</p>
-            </div>
-            <div className="stat-card">
-              <p className="text-dark-400 text-sm font-medium">Positions</p>
-              <p className="text-2xl font-display font-bold mt-1 text-white">{mockPositions.length}</p>
-              <p className="text-dark-400 text-sm mt-1">Across 3 chains</p>
-            </div>
-          </section>
-
-          <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            <div className="lg:col-span-2 glass-card p-6">
-              <h3 className="font-display font-semibold text-white mb-6">Portfolio Value</h3>
-              <div className="h-48 flex items-end justify-between gap-2">
-                {mockHistorical.map((data, index) => {
-                  const maxValue = Math.max(...mockHistorical.map((d) => d.value))
-                  const minValue = Math.min(...mockHistorical.map((d) => d.value))
-                  const height = ((data.value - minValue) / (maxValue - minValue)) * 100
-
-                  return (
-                    <div key={data.date} className="flex-1 flex flex-col items-center gap-2">
-                      <div className="w-full relative" style={{ height: '160px' }}>
-                        <div
-                          className="absolute bottom-0 w-full rounded-t-lg bg-gradient-to-t from-primary-600 to-primary-400"
-                          style={{ height: `${height}%` }}
-                        />
-                      </div>
-                      <span className="text-xs text-dark-500">{data.date.split('-')[1]}</span>
-                    </div>
-                  )
-                })}
+          <section className="mb-8 sm:mb-10">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              <div className="glass-card p-4 sm:p-5 hover-lift">
+                <p className="text-xs text-mist uppercase tracking-wide mb-1">Total Value</p>
+                <p className="stat-value text-2xl sm:text-3xl gradient-text">{formatCurrency(totalValue)}</p>
+                <p className="text-xs text-plasma mt-1">+$4,842 (12.3%)</p>
+              </div>
+              <div className="glass-card p-4 sm:p-5 hover-lift">
+                <p className="text-xs text-mist uppercase tracking-wide mb-1">Total Rewards</p>
+                <p className="stat-value text-2xl sm:text-3xl text-snow">${totalRewards}</p>
+                <p className="text-xs text-mist mt-1">This month</p>
+              </div>
+              <div className="glass-card p-4 sm:p-5 hover-lift">
+                <p className="text-xs text-mist uppercase tracking-wide mb-1">Avg APY</p>
+                <p className="stat-value text-2xl sm:text-3xl text-snow">12.5%</p>
+                <p className="text-xs text-mist mt-1">Weighted average</p>
+              </div>
+              <div className="glass-card p-4 sm:p-5 hover-lift">
+                <p className="text-xs text-mist uppercase tracking-wide mb-1">Positions</p>
+                <p className="stat-value text-2xl sm:text-3xl text-snow">{mockPositions.length}</p>
+                <p className="text-xs text-mist mt-1">Across 3 chains</p>
               </div>
             </div>
+          </section>
 
-            <div className="glass-card p-6">
-              <h3 className="font-display font-semibold text-white mb-6">Allocation</h3>
+          <section className="mb-8 sm:mb-10">
+            <div className="glass-card p-5 sm:p-6">
+              <h3 className="font-display font-semibold text-snow mb-6 flex items-center gap-2">
+                <PieChart className="w-5 h-5 text-plasma" />
+                Allocation
+              </h3>
               <div className="space-y-4">
                 {mockPositions.map((position) => {
                   const percentage = (position.value / totalValue) * 100
                   return (
                     <div key={position.protocol} className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-white">{position.protocol}</span>
-                        <span className="text-sm text-dark-400">{percentage.toFixed(1)}%</span>
+                        <div className="flex items-center gap-2">
+                          <img src={position.logo} alt={position.protocol} className="w-5 h-5 rounded-full" />
+                          <span className="text-sm font-medium text-snow">{position.protocol}</span>
+                        </div>
+                        <span className="text-sm text-mist">{percentage.toFixed(1)}%</span>
                       </div>
-                      <div className="h-2 bg-dark-800 rounded-full overflow-hidden">
+                      <div className="h-2 bg-slate/50 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-primary-600 to-primary-400 rounded-full"
+                          className="h-full bg-gradient-to-r from-plasma to-neon rounded-full transition-all duration-1000"
                           style={{ width: `${percentage}%` }}
                         />
                       </div>
@@ -162,57 +142,63 @@ export default function PortfolioPage() {
           </section>
 
           <section>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="font-display text-xl font-bold text-white">Your Positions</h2>
-            </div>
+            <h2 className="text-lg sm:text-xl font-display font-bold text-snow mb-4 sm:mb-6">Your Positions</h2>
 
-            <div className="space-y-3">
-              {mockPositions.map((position) => {
+            <div className="space-y-3 sm:space-y-4">
+              {mockPositions.map((position, index) => {
                 const chainMeta = CHAIN_METADATA[position.chain as keyof typeof CHAIN_METADATA]
 
                 return (
                   <div
                     key={position.protocol}
-                    className="glass-card p-5 hover:border-primary-500/30 transition-all duration-300"
+                    className="glass-card p-4 sm:p-5 hover-lift animate-in"
+                    style={{ animationDelay: `${index * 75}ms` }}
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="p-3 rounded-xl bg-dark-800/50">
-                          <TrendingUp className="w-5 h-5 text-primary-500" />
-                        </div>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      <div className="flex items-center gap-3 sm:gap-4 flex-1">
+                        <img
+                          src={position.logo}
+                          alt={position.protocol}
+                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate/30 p-1"
+                        />
                         <div>
-                          <h4 className="font-medium text-white">{position.protocol}</h4>
-                          <div className="flex items-center gap-2 mt-1">
+                          <h4 className="font-semibold text-snow">{position.protocol}</h4>
+                          <div className="flex items-center gap-2 mt-0.5">
                             <img
                               src={chainMeta.logo}
                               alt={chainMeta.name}
                               className="w-4 h-4 rounded-full"
                             />
-                            <span className="text-xs text-dark-400">{chainMeta.name}</span>
-                            <span className="text-xs text-dark-500">•</span>
-                            <span className="text-xs text-dark-400">{position.token}</span>
+                            <span className="text-xs text-mist">{chainMeta.name}</span>
+                            <span className="text-xs text-ash">•</span>
+                            <span className="text-xs text-mist">{position.token}</span>
                           </div>
                         </div>
                       </div>
 
-                      <div className="text-right">
-                        <p className="font-display font-bold text-white">{formatCurrency(position.value)}</p>
-                        <p className="text-xs text-dark-400">{position.amount} {position.token}</p>
-                      </div>
+                      <div className="flex items-center justify-between sm:justify-end gap-6 sm:gap-8">
+                        <div className="text-left sm:text-right">
+                          <p className="text-xs text-mist uppercase">Value</p>
+                          <p className="stat-value text-lg sm:text-xl text-snow">{formatCurrency(position.value)}</p>
+                          <p className="text-[10px] text-mist">{position.amount} {position.token}</p>
+                        </div>
 
-                      <div className="text-right">
-                        <p className="font-display font-bold text-primary-500">{position.apy}% APY</p>
-                        <p className="text-xs text-dark-400">${position.rewards} rewards</p>
-                      </div>
+                        <div className="text-left sm:text-right">
+                          <p className="text-xs text-mist uppercase">APY</p>
+                          <p className="stat-value text-lg sm:text-xl text-plasma">{position.apy}%</p>
+                          <p className="text-[10px] text-mist">${position.rewards} rewards</p>
+                        </div>
 
-                      <a
-                        href={chainMeta.explorer}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 rounded-lg hover:bg-dark-800/50 transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4 text-dark-400" />
-                      </a>
+                        <a
+                          href={chainMeta.explorer}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-lg hover:bg-slate/30 transition-colors hidden sm:flex"
+                          aria-label="View on explorer"
+                        >
+                          <ExternalLink className="w-4 h-4 text-mist" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 )
@@ -222,5 +208,13 @@ export default function PortfolioPage() {
         </div>
       </main>
     </div>
+  )
+}
+
+export default function PortfolioPage() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <PortfolioContent />
+    </Suspense>
   )
 }
