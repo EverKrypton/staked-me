@@ -2,7 +2,7 @@
 
 import { useAccount } from 'wagmi'
 import { TrendingUp, Users, DollarSign, Zap, ArrowUpRight, ArrowDownRight } from 'lucide-react'
-import { formatNumber, formatCurrency } from '@/lib/utils'
+import { formatNumber, formatCurrency } from '@/utils/format'
 
 const mockStats = {
   totalTVL: 45200000000,

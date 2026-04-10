@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { formatCurrency, formatNumber } from '@/lib/utils'
+import { formatCurrency, formatNumber } from '@/utils/format'
 import { CHAIN_METADATA } from '@/config/chains'
 
 const chainStats = [

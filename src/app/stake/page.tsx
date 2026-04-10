@@ -1,33 +1,37 @@
 'use client'
 
+import { Suspense } from 'react'
+import { AlertCircle } from 'lucide-react'
 import { Header } from '@/components/Header'
+import { CartDrawer } from '@/components/cart/CartDrawer'
 import { ProtocolFilters } from '@/components/ProtocolFilters'
-import { ProtocolCard } from '@/components/ProtocolCard'
+import { ProtocolList } from '@/components/ProtocolCard'
 import { PROTOCOLS } from '@/config/protocols'
 import { useAccount } from 'wagmi'
-import { AlertCircle, Wallet } from 'lucide-react'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
-export default function StakePage() {
+function StakeContent() {
   const { isConnected } = useAccount()
   const allProtocols = Object.values(PROTOCOLS).flat()
 
   return (
-    <div className="min-h-screen bg-dark-950 bg-grid-pattern bg-grid">
-      <div className="fixed inset-0 bg-gradient-to-b from-primary-950/20 via-transparent to-dark-950 pointer-events-none" />
-      
+    <div className="min-h-screen bg-void bg-grid bg-noise">
       <Header />
+      <CartDrawer />
 
-      <main className="relative pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="pt-20 sm:pt-24 pb-16 sm:pb-20">
+        <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <section className="mb-8">
-            <h1 className="text-3xl font-display font-bold text-white mb-2">Stake</h1>
-            <p className="text-dark-400">Find the best staking opportunities across all chains</p>
+            <h1 className="text-3xl sm:text-4xl font-display font-bold text-snow mb-2">
+              <span className="gradient-text">Stake</span>
+            </h1>
+            <p className="text-mist">Find the best staking opportunities across all chains</p>
           </section>
 
           {!isConnected && (
-            <div className="glass-card p-4 mb-6 flex items-center gap-3 border-accent-orange/30">
-              <AlertCircle className="w-5 h-5 text-accent-orange" />
-              <p className="text-dark-300 text-sm">
+            <div className="glass-card p-4 mb-6 flex items-center gap-3 border-ember/30">
+              <AlertCircle className="w-5 h-5 text-ember" />
+              <p className="text-mist text-sm">
                 Connect your wallet to track your staking positions and receive personalized recommendations.
               </p>
             </div>
@@ -39,8 +43,8 @@ export default function StakePage() {
 
           <section>
             <div className="flex items-center justify-between mb-6">
-              <p className="text-dark-400 text-sm">
-                Showing <span className="text-white font-medium">{allProtocols.length}</span> protocols
+              <p className="text-mist text-sm">
+                Showing <span className="text-snow font-medium">{allProtocols.length}</span> protocols
               </p>
             </div>
             <ProtocolList />
@@ -48,5 +52,13 @@ export default function StakePage() {
         </div>
       </main>
     </div>
+  )
+}
+
+export default function StakePage() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <StakeContent />
+    </Suspense>
   )
 }
